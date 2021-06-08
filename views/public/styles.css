@@ -1,0 +1,11 @@
+table,
+th,
+td {
+  border: 2px solid darkblue;
+}
+
+body {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+}

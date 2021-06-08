@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Person</title>
+  </head>
+  <body>
+    <form method="POST" action="/people/<%= id %>">
+      <label for="name">Name</label>
+      <input id="name" type="text" name="name" value="<%= name %>"/>
+      <label for="movie">movie</label>
+      <input id="movie" type="text" name="movie" value="<%= movie  %>"/>
+      <input type="submit" name="Add New Person" />
+    </form>
+  </body>
+</html>
