@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link type="text/css" rel="stylesheet" href="/public/styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>People I Knew</title>
+  </head>
+  <body>
+    <h1>People I Knew!</h1>
+    <table>
+        <tr>
+            <th colspan="2">Actions</th>
+            <th>Name</th>
+            <th>Favorite Movie</th>
+        </tr>
+
+      <% for (let item in peopleObjects) { %> <!-- this is how to include JS in your template -->
+        <tr>
+            <td><form method="POST" action="/persons/<%= peopleObjects[item].id %>/delete">
+                <input type="submit" value="Delete">
+              </form>
+              </td>
+              <td>
+              <form method="GET" action="/persons/<%= peopleObjects[item].id %>">
+                <input type="submit" value="Edit">
+               </form>
+              </td>
+
+
+          <td><%= peopleObjects[item].name %></td>
+          <td><%= peopleObjects[item].movie %></td>
+        </tr>
+      <% } %>  
+     
+      
+    </table>
+  </body>
+</html>

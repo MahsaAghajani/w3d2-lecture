@@ -30,19 +30,12 @@ const people = {
       name: 'Alice',
       movie: 'Alice in wonderland',
     },
-    '45rur1': {
-        id: '67tir1',
-        name: 'Marlin',
-        movie: 'Finding Nemo',
-      },
-    '45rur2': {
-        id: '67tir1',
+    '67tir2': {
+        id: '67tir2',
         name: 'Marlin',
         movie: 'Finding Nemo',
       },
   };
-
-
 
 // Method + action(path)
 
@@ -50,58 +43,57 @@ app.get('/', (req, res) => {
     res.send('Welcome to see people and their favorite movies!');
   });
 
-// CRUD OPERATION
 
-//list of all the people
-app.get('/people', (req, res) => {
-  const templateVars = {people : people}
-  res.render("people", templateVars);
-});
+  //CRUD OPERATIONS
 
+  // Http method + http action
 
-//Create or add a new person
-app.get("/people/new", (req, res) => {
-  res.render("new")
-});
+  //READ
+  app.get("/persons", (req, res) => {
+      const templateVars = {peopleObjects :people }
+      res.render("persons", templateVars)
+  })
 
 
-app.post("/people", (req, res)=> {
-  console.log(req.body)
-  let key = Math.random().toString(36).substr(2,8)
-  people[key] = {id :key, name : req.body.name , movie: req.body.movie }
+  //CREATE
+  app.get("/persons/new", (req, res) => {
+      res.render("new")
+  })
 
-  res.redirect("/people")
+  app.post("/persons", (req, res) => {
+      console.log(req);
 
-});
-
-
-
-
-//Update or edit a person
-app.get("/people/:id", (req, res) => {
-  const key = req.params.id
-  console.log(key)
-  const templateVars = {name : people[key].name, flower:people[key].movie, id: people[key].id}
-  res.render("edit", templateVars)
-})
-
-app.post("/people/:id", (req, res) => {
-  console.log(req.body)
-  people[req.params.id] = {id : req.params.id, name : req.body.name, movie: req.body.flower}
-
-  res.redirect("/people")
-
-})
+      let key = Math.random().toString(36).substr(2,8)
+      people[key] = {id :key, name : req.body.name , movie: req.body.movie }
 
 
-//Delete or remove a person
-app.post("/people/:id/delete", (req, res) => {
-  delete people[req.params.id];
-
-  res.redirect("/people")
-})
+      res.redirect("/persons")
+  })
 
 
+
+  //UPDATE
+  app.get("/persons/:id", (req, res) => {
+      const key = req.params.id
+      const templateVars = {name : people[key].name, movie: people[key].movie, id: people[key].id}
+      res.render("edit", templateVars)
+  })
+
+  app.post("/persons/:id", (req, res) => {
+    const key = req.params.id;
+    people[key] = {id : key, name: req.body.name, movie: req.body.movie}
+
+    res.redirect("/persons")
+  })
+
+  //DELETE
+  app.post("/persons/:id/delete", (req, res) => {
+      const key = req.params.id;
+      delete people[key];
+
+      res.redirect("/persons")
+  })
+  
   
 app.listen(PORT, () => console.log(`Server is running at port ${PORT}`));
 
